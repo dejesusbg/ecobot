@@ -1,0 +1,22 @@
+{
+	"name": "EcoBot",
+	"short_name": "EcoBot",
+	"description": "Asistente virtual ecológico para un robot hecho con materiales reciclados.",
+	"start_url": "/",
+	"display": "fullscreen",
+	"orientation": "portrait",
+	"background_color": "#0f172a",
+	"theme_color": "#0f172a",
+	"icons": [
+		{
+			"src": "/android-chrome-192x192",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/android-chrome-512x512",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}
