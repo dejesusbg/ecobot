@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #b99d79;
+}
+
+.background {
+	transition: background-image 0.1s ease-in-out;
+}
