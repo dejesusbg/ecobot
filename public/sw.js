@@ -33,7 +33,6 @@ self.addEventListener('fetch', (event) => {
 			if (cached) return cached;
 			return fetch(event.request)
 				.then((response) => {
-					// Put a copy in the cache for next time
 					if (response && response.status === 200 && response.type === 'basic') {
 						const resClone = response.clone();
 						caches.open(CACHE_NAME).then((cache) => cache.put(event.request, resClone));

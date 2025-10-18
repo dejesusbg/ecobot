@@ -4,7 +4,7 @@
 	"description": "Asistente virtual ecológico para un robot hecho con materiales reciclados.",
 	"start_url": "/",
 	"display": "fullscreen",
-	"orientation": "portrait",
+	"orientation": "landscape",
 	"background_color": "#0f172a",
 	"theme_color": "#0f172a",
 	"icons": [
