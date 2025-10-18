@@ -48,11 +48,9 @@ export default function App() {
 
 	// preload images
 	useEffect(() => {
-		[0, 1, 2, 3, 4, 5, 6].map((i) => {
-			const img = new Image();
-			img.src = `/${i}.png`;
-			return img;
-		});
+		for (let i = 0; i <= 10; i++) {
+			new Image().src = `/${i}.png`;
+		}
 	}, []);
 
 	const handleUserInput = async (text: string) => {
@@ -95,15 +93,30 @@ export default function App() {
 		window.speechSynthesis.cancel();
 		const utterance = new SpeechSynthesisUtterance(text);
 		utterance.lang = 'es-CO';
-		utterance.rate = 1.25;
+		utterance.rate = 1.2;
 
-		// change image on word boundary
-		utterance.onboundary = (e) => setImage(Math.floor(Math.random() * 6) + 1);
+		// change image
+		let currentImage = 1;
+		let ascending = true;
+		const animationId = setInterval(() => {
+			if (ascending) {
+				currentImage += 1;
+				if (currentImage >= 9) ascending = false;
+			} else {
+				currentImage -= 1;
+				if (currentImage <= 1) ascending = true;
+			}
+			setImage(currentImage);
+		}, 25);
 
-		utterance.onend = () => setState('Esperando');
+		utterance.onend = () => {
+			clearTimeout(animationId);
+			setState('Esperando');
+		};
 
 		utterance.onerror = (e) => {
 			console.error('Speech synthesis error:', e);
+			clearTimeout(animationId);
 			setState('Esperando');
 		};
 
@@ -121,7 +134,9 @@ export default function App() {
 			<div
 				className="h-screen w-screen bg-center bg-cover bg-no-repeat fixed background"
 				style={{
-					backgroundImage: `url(/${state == 'Hablando' ? image + '.png' : '0.png'})`,
+					backgroundImage: `url(/${
+						{ Escuchando: '0', Hablando: image, Pensando: '0', Esperando: '0' }[state]
+					}.png)`,
 				}}
 				onClick={handleClick}></div>
 			<div className="fixed bottom-4 right-4 flex items-center justify-center">
