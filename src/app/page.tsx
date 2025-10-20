@@ -1,5 +1,6 @@
 'use client';
 import clsx from 'clsx';
+import { Maximize } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 type STATE = 'Escuchando' | 'Hablando' | 'Pensando' | 'Esperando';
@@ -45,13 +46,6 @@ export default function App() {
 	useEffect(() => {
 		historyRef.current = history;
 	}, [history]);
-
-	// preload images
-	useEffect(() => {
-		for (let i = 0; i <= 10; i++) {
-			new Image().src = `/${i}.png`;
-		}
-	}, []);
 
 	const handleUserInput = async (text: string) => {
 		if (!recognitionRef.current) return;
@@ -129,29 +123,44 @@ export default function App() {
 		recognitionRef.current.start();
 	};
 
+	const fullscreen = () => {
+		const elem = document.documentElement;
+		if (elem.requestFullscreen) {
+			elem.requestFullscreen();
+		} else if ((elem as any).mozRequestFullScreen) {
+			(elem as any).mozRequestFullScreen();
+		} else if ((elem as any).webkitRequestFullscreen) {
+			(elem as any).webkitRequestFullscreen();
+		} else if ((elem as any).msRequestFullscreen) {
+			(elem as any).msRequestFullscreen();
+		}
+	};
+
+	const getButtonColour = (state: string) => {
+		return {
+			Escuchando: 'bg-red-500/75 animate-pulse',
+			Hablando: 'bg-green-500/75 animate-pulse',
+			Pensando: 'bg-blue-500/75',
+			Esperando: 'bg-gray-600/75',
+		}[state];
+	};
+
 	return (
 		<>
 			<div
 				className="h-screen w-screen bg-center bg-cover bg-no-repeat fixed background"
-				style={{
-					backgroundImage: `url(/${
-						{ Escuchando: '0', Hablando: image, Pensando: '0', Esperando: '0' }[state]
-					}.png)`,
-				}}
-				onClick={handleClick}></div>
-			<div className="fixed bottom-4 right-4 flex items-center justify-center">
-				<div
-					className={clsx(
-						'px-4 py-2 rounded-full text-white text-lg font-medium shadow-lg transition-all duration-300 ease-in-out opacity-75',
-						{
-							Escuchando: 'bg-red-500/75 animate-pulse',
-							Hablando: 'bg-green-500/75',
-							Pensando: 'bg-blue-500/75',
-							Esperando: 'bg-gray-600/75',
-						}[state]
-					)}>
-					<span className="capitalize">{state === 'Esperando' ? 'Presiona' : state}</span>
+				style={{ backgroundImage: `url(/${state === 'Hablando' ? image : 0}.png)` }}
+				onClick={handleClick}
+			/>
+			<div className="fixed bottom-4 right-4 space-x-2 flex">
+				<div className={clsx('pill', getButtonColour(state))}>
+					<span className="text-white text-sm font-medium">
+						{state === 'Esperando' ? 'Presiona la pantalla' : state}
+					</span>
 				</div>
+				<button onClick={fullscreen} className={clsx('pill', getButtonColour(state))}>
+					<Maximize size={16} className="text-white" />
+				</button>
 			</div>
 		</>
 	);
