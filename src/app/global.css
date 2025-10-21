@@ -8,10 +8,34 @@ body {
 	background-color: #b99d79;
 }
 
-.background {
-	transition: background-image 0.1s ease-in-out;
+@layer utilities {
+	.blur-to-t {
+		mask: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 0.8) 50%,
+			rgba(0, 0, 0, 1) 100%
+		);
+		@apply backdrop-blur-3xl;
+	}
+
+	.blur-to-b {
+		mask: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 0.8) 50%,
+			rgba(0, 0, 0, 1) 100%
+		);
+		@apply backdrop-blur-3xl;
+	}
 }
 
-.pill {
-	@apply px-4 py-2 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-75;
+@layer components {
+	.background {
+		@apply transition-all duration-300 ease-in-out;
+	}
+
+	.glass {
+		@apply backdrop-blur-3xl bg-black/25 shadow-lg text-white px-4 py-2 rounded-3xl shadow-lg transition-all duration-300 ease-in-out;
+	}
 }
