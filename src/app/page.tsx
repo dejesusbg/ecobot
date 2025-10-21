@@ -137,12 +137,14 @@ export default function App() {
 	};
 
 	const getButtonColour = (state: string) => {
-		return {
-			Escuchando: 'bg-red-500/75 animate-pulse',
-			Hablando: 'bg-green-500/75 animate-pulse',
-			Pensando: 'bg-blue-500/75',
-			Esperando: 'bg-gray-600/75',
-		}[state];
+		switch (state) {
+			case 'Escuchando':
+				return 'bg-red-500 animate-pulse';
+			case 'Hablando':
+				return 'bg-green-500 animate-pulse';
+			default:
+				return '';
+		}
 	};
 
 	return (
@@ -153,13 +155,13 @@ export default function App() {
 				onClick={handleClick}
 			/>
 			<div className="fixed bottom-4 right-4 space-x-2 flex">
-				<div className={clsx('pill', getButtonColour(state))}>
-					<span className="text-white text-sm font-medium">
+				<div className={clsx('glass', getButtonColour(state))}>
+					<span className="text-sm font-semibold">
 						{state === 'Esperando' ? 'Presiona la pantalla' : state}
 					</span>
 				</div>
-				<button onClick={fullscreen} className={clsx('pill', getButtonColour(state))}>
-					<Maximize size={16} className="text-white" />
+				<button onClick={fullscreen} className={clsx('glass', getButtonColour(state))}>
+					<Maximize size={16} />
 				</button>
 			</div>
 		</>
