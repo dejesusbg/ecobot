@@ -150,7 +150,7 @@ export default function App() {
 	return (
 		<>
 			<div
-				className="h-svh w-svh bg-center bg-cover bg-no-repeat fixed background"
+				className="h-svh w-svw bg-center bg-cover bg-no-repeat fixed background"
 				style={{ backgroundImage: `url(/${state === 'Hablando' ? image : 0}.png)` }}
 				onClick={handleClick}
 			/>

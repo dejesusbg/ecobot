@@ -66,13 +66,13 @@ export default function ChatPage() {
 
 	return (
 		<>
-			<div className="h-svh w-svh bg-center bg-cover bg-no-repeat fixed background bg-[url('/0.png')]" />
-			<div className="absolute z-50 w-svh flex py-4 top-0 blur-to-t">
+			<div className="h-svh w-svw bg-center bg-cover bg-no-repeat fixed background bg-[url('/0.png')]" />
+			<div className="absolute z-50 w-svw flex py-4 top-0 blur-to-t">
 				<div className="mx-auto glass">
 					<h1 className="text-sm font-semibold">Chatea con EcoBot Lawrence</h1>
 				</div>
 			</div>
-			<div className="flex flex-col h-svh w-svh ">
+			<div className="flex flex-col h-svh w-svw ">
 				<div className="flex-1 overflow-y-auto px-4 space-y-4 py-16">
 					<AnimatePresence>
 						{history.map((msg, index) => (
@@ -95,7 +95,7 @@ export default function ChatPage() {
 					<div ref={messagesEndRef} />
 				</div>
 			</div>
-			<div className="flex items-center p-4 space-x-2 absolute z-50 w-svh bottom-0 blur-to-b">
+			<div className="flex items-center p-4 space-x-2 absolute z-50 w-svw bottom-0 blur-to-b">
 				<textarea
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
